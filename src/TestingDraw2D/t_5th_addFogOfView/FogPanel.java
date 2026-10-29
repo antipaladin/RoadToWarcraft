@@ -4,6 +4,7 @@ package TestingDraw2D.t_5th_addFogOfView;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Area;
+import java.awt.geom.RoundRectangle2D;
 
 public class FogPanel extends JPanel {
 
@@ -26,7 +27,11 @@ public class FogPanel extends JPanel {
 
         // 2. Minden nyilvántartott lyukat kivágunk belőle
         for (Rectangle hole : fogHoles.getHoles()) {
-            fog.subtract(new Area(hole));
+            RoundRectangle2D rounded = new RoundRectangle2D.Double(
+                    hole.x, hole.y,            // bal felső sarok
+                    hole.width, hole.height,   // méret
+                    60, 60);
+            fog.subtract(new Area(rounded));
         }
 
         // 3. Ami maradt, azt befestjük
